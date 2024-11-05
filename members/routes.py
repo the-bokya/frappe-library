@@ -7,7 +7,7 @@ route = Blueprint("members", __name__, url_prefix="/members")
 @route.route("/", methods=["GET"])
 def view():
     members = read()
-    return render_template("members/index.html", members=members)
+    return render_template("members/index.html", members=members, delete_mode=False)
 
 
 @route.route("/create", methods=["GET", "POST"])
@@ -24,3 +24,10 @@ def create_view():
             "failure.html",
             message=f"There was a problem creating the member {name}!",
         )
+
+
+@route.route("/delete", methods=["GET", "POST"])
+def delete_view():
+    if request.method == "GET":
+        members = read()
+        return render_template("members/index.html", members=members, delete_mode=True)
