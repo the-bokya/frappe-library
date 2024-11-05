@@ -9,6 +9,17 @@ def read():
     return members
 
 
+def get_from_id(id):
+    cur = conn.cursor()
+    cur.execute(
+        "select memberid, name, registration_timestamp from members where memberid = ?",
+        (id,),
+    )
+    member = cur.fetchone()
+    cur.close()
+    return member
+
+
 def create(name):
     cur = conn.cursor()
     try:
