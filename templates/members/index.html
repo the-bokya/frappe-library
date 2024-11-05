@@ -1,0 +1,22 @@
+{% extends "./base.html" %} {% block title %} Members {% endblock %} {% block
+main %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Registration Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in members %}
+    <tr>
+      <th>{{ member.memberid }}</th>
+      <th>{{ member.name }}</th>
+      <th>{{ member.registration_timestamp }}</th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
