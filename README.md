@@ -8,6 +8,10 @@ My implementation of Frappe's dev-hiring-test.
 - [X] Add DB connection object. (**Note**: Foreign keys have to be turned on manually)
 - [ ] Create screens for:
   - [ ] Members (with CRUD)
+    - [ ] Create
+    - [X] Read
+    - [ ] Update
+    - [ ] Delete
   - [ ] Books (CRUD + import using API (separate screen))
   - [ ] Transactions (view-only)
 - [ ] Interface with the Frappe book API.
