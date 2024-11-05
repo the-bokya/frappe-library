@@ -1,6 +1,6 @@
 from sqlite3 import connect, Row
 
-conn = connect("frappe.db")
+conn = connect("frappe.db", check_same_thread=False)
 
 # Foreign keys have to be turned on manually in sqlite3 as it turns out
 conn.execute("PRAGMA foreign_keys = ON")
