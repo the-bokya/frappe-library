@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from .models import read, create, delete
+from .models import read, create, delete, get_from_id
 
 route = Blueprint("members", __name__, url_prefix="/members")
 
@@ -43,3 +43,17 @@ def delete_view():
             return render_template(
                 "failure.html", message=f"There was a problem deleting the IDs!"
             )
+
+
+@route.route("/update", methods=["GET", "PATCH"])
+def update_view():
+    if request.method == "GET":
+        id = request.args.get("id", default=-1, type=int)
+        if id == -1:
+            return render_template(
+                "failure.html", message=f"Please provide an ID to delete!"
+            )
+        member = get_from_id(id)
+        return render_template("members/update.html", member=member)
+    if request.method == "POST":
+        return
