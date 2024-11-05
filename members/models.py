@@ -21,3 +21,19 @@ def create(name):
         print(e)
         return False
     return True
+
+
+def delete(ids):
+    cur = conn.cursor()
+    try:
+        # I myself have never batch deleted before.
+        # What this does is give the list of ids as parameters and the corresponding
+        # '?'s as a string to the query.
+        # This is messy but safe, and avoids the n+1 problem
+        selectors = ", ".join("?" for id in range(len(ids)))
+        cur.execute(f"delete from members where memberid in ({selectors})", ids)
+        cur.close()
+        conn.commit()
+    except:
+        return False
+    return True
