@@ -4,7 +4,7 @@ My implementation of Frappe's dev-hiring-test.
 
 # Checklist
 
-- [ ] Create DB schema
+- [X] Create DB schema
 - [ ] Create screens for:
   - [ ] Members (with CRUD)
   - [ ] Books (CRUD + import using API (separate screen))
