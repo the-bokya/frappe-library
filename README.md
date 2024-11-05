@@ -5,6 +5,7 @@ My implementation of Frappe's dev-hiring-test.
 # Checklist
 
 - [X] Create DB schema
+- [ ] Add DB connection object. (**Note**: Foreign keys have to be turned on manually)
 - [ ] Create screens for:
   - [ ] Members (with CRUD)
   - [ ] Books (CRUD + import using API (separate screen))
