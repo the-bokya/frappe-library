@@ -13,8 +13,7 @@ def view():
 @route.route("/create", methods=["GET", "POST"])
 def create_view():
     if request.method == "GET":
-        members = read()
-        return render_template("members/create.html", members=members)
+        return render_template("members/create.html")
     if request.method == "POST":
         name = request.form["name"]
         if create(name):
