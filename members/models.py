@@ -48,3 +48,17 @@ def delete(ids):
     except:
         return False
     return True
+
+
+def update(id, name, timestamp):
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            "update members set name=?, registration_timestamp=? where memberid=?",
+            (name, timestamp, id),
+        )
+        conn.commit()
+    except Exception as e:
+        print(e)
+        return False
+    return True

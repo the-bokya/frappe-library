@@ -7,10 +7,10 @@ My implementation of Frappe's dev-hiring-test.
 - [X] Create DB schema
 - [X] Add DB connection object. (**Note**: Foreign keys have to be turned on manually)
 - [ ] Create screens for:
-  - [ ] Members (with CRUD)
+  - [X] Members (with CRUD)
     - [X] Create
     - [X] Read
-    - [ ] Update
+    - [X] Update
     - [X] Delete
   - [ ] Books (CRUD + import using API (separate screen))
   - [ ] Transactions (view-only)

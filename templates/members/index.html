@@ -1,15 +1,8 @@
-{% extends "./base.html" %}
-    {% block title %}
-        {% if delete_mode %}
-            Delete Members
-        {% else %}
-            Members
-        {% endif %}
-    {% endblock %}
-{% block main %}
-    {% if delete_mode %}
-    <form action="/members/delete" method="post">
-    {% endif %}
+{% extends "./base.html" %} {% block title %} {% if delete_mode %} Delete
+Members {% else %} Members {% endif %} {% endblock %} {% block main %} {% if
+delete_mode %}
+<form action="/members/delete" method="post">
+  {% endif %}
   <table>
     <thead>
       {% if delete_mode %}
@@ -34,8 +27,13 @@
           <input type="checkbox" name="delete" value="{{ member.memberid }}" />
         </th>
         {% endif %}
-        <th>{{ member.memberid }}</th>
-        <th>{{ member.name }}</th>
+        <th>
+            {{ member.memberid }}
+        </th>
+        <th>
+          <a href="/members/update?id={{member.memberid}}">
+          {{ member.name }}</th>
+          </a>
         <th>{{ member.registration_timestamp }}</th>
       </tr>
       {% endfor %}
@@ -56,5 +54,4 @@
     <strong>- delete members</strong>
   </button>
 </a>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}
