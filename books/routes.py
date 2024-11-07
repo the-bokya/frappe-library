@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
 from .models import read, create, delete, get_from_id, update
+from .import_books import import_books
 
 route = Blueprint("books", __name__, url_prefix="/books")
 
@@ -19,7 +20,9 @@ def create_view():
         book["authors"] = request.args.get("authors", default="", type=str)
         book["isbn"] = request.args.get("isbn", default="", type=str)
         book["language_code"] = request.args.get("language_code", default="", type=str)
-        book["publication_date"] = request.args.get("publication_date", default="", type=str)
+        book["publication_date"] = request.args.get(
+            "publication_date", default="", type=str
+        )
         book["publisher"] = request.args.get("publisher", default="", type=str)
         book["amount"] = request.args.get("amount", default=0, type=int)
 
@@ -35,7 +38,14 @@ def create_view():
         publisher = request.form["publisher"]
         amount = request.form["amount"]
         if create(
-            id, title, authors, isbn, language_code, publication_date, publisher, amount
+            bookid=id,
+            title=title,
+            authors=authors,
+            isbn=isbn,
+            language_code=language_code,
+            publication_date=publication_date,
+            publisher=publisher,
+            amount=amount,
         ):
             return render_template(
                 "success.html", message=f"Successfully created book {title}!"
@@ -96,3 +106,53 @@ def update_view():
             return render_template(
                 "failure.html", message=f"There was a problem updating the ID!"
             )
+
+
+@route.route("/import", methods=["GET", "POST"])
+def import_view():
+    if request.method == "GET":
+        return render_template("books/import.html", show_books=False)
+
+    if request.method == "POST":
+        id = request.form["bookID"]
+        title = request.form["title"]
+        authors = request.form["authors"]
+        isbn = request.form["isbn"]
+        language_code = request.form["language_code"]
+        publication_date = request.form["publication_date"]
+        publisher = request.form["publisher"]
+        amount = request.form["amount"]
+
+        if update(
+            bookid=id,
+            title=title,
+            authors=authors,
+            isbn=isbn,
+            language_code=language_code,
+            publication_date=publication_date,
+            publisher=publisher,
+            amount=amount,
+        ):
+            return render_template(
+                "success.html", message=f"Successfully updated ID {id}!"
+            )
+        else:
+            return render_template(
+                "failure.html", message=f"There was a problem updating the ID!"
+            )
+
+
+@route.route("/import/search", methods=["GET"])
+def search_view():
+    if request.method == "GET":
+        params = dict()
+        title = request.args.get("title", default="", type=str)
+        authors = request.args.get("authors", default="", type=str)
+        isbn = request.args.get("isbn", default="", type=str)
+        publisher = request.args.get("publisher", default="", type=str)
+
+        books = import_books(
+            title=title, authors=authors, isbn=isbn, publisher=publisher
+        )
+        print(books)
+        return render_template("books/import.html", books=books, show_books=True)

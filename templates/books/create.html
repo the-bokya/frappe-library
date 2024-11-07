@@ -13,7 +13,7 @@ main %}
   <label for="language_code">Language Code</label>
   <input type="text" name="language_code" placeholder="Language Code" value="{{book.language_code}}" />
   <label for="publication_date">Publication Date</label>
-  <input type="date" name="publication_date" placeholder="Language Code" value="{{book.publication_date}}" />
+  <input type="date" name="publication_date" placeholder="Language Code" value="{{book.publication_date | datereader}}" />
   <label for="publisher">Publisher</label>
   <input type="text" name="publisher" placeholder="Publisher" value="{{book.publisher}}"/>
   <label for="amount">Amount</label>

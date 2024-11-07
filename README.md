@@ -14,5 +14,5 @@ My implementation of Frappe's dev-hiring-test.
     - [X] Delete
   - [X] Books (CRUD + import using API (separate screen))
   - [ ] Transactions (view-only)
-- [ ] Interface with the Frappe book API.
-- [ ] Screen for book insert (maybe htmx if needed)
+- [X] Interface with the Frappe book API.
+- [X] Screen for book insert (maybe htmx if needed)
