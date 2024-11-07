@@ -48,6 +48,7 @@ def delete(memberIDs):
         cur.close()
         conn.commit()
     except:
+        conn.rollback()
         return False
     return True
 
@@ -61,6 +62,7 @@ def update(ID, name, timestamp):
         )
         conn.commit()
     except Exception as e:
+        conn.rollback()
         print(e)
         return False
     return True
