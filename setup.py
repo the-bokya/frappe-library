@@ -86,7 +86,7 @@ conn.execute(
         bks.publication_date,
         bks.publisher,
         bks.amount,
-        coalesce(a.currently_available, 0) as pending_books
+        coalesce(a.currently_available, 0) as currently_available
     from books as bks
     left join a on bks.bookid = a.bookid;
     """
