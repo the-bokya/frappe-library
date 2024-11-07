@@ -7,16 +7,16 @@ def view_transactions():
         """
         select
             transactionid,
-            members.memberid as memberid,
+            members.memberID as memberID,
             members.name as member_name,
-            books.bookid as bookid,
+            books.bookID as bookID,
             books.title as book_title,
             issue_date,
             return_date,
             returned
         from transactions
-            join books on books.bookid=transactions.bookid
-            join members on members.memberid=transactions.memberid
+            join books on books.bookID=transactions.bookID
+            join members on members.memberID=transactions.memberID
         """
     )
     transactions = cur.fetchall()

@@ -19,7 +19,9 @@ delete_mode %}
         <th>Registration Time</th>
         <th>Pending Returns</th>
         <th>Due Amount</th>
-        <th>Issue</th>
+        {% if not delete_mode %}
+          <th>Issue</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -28,29 +30,31 @@ delete_mode %}
       <tr>
         {% if delete_mode %}
         <th>
-          <input type="checkbox" name="delete" value="{{ member.memberid }}" />
+          <input type="checkbox" name="memberID" value="{{ member.memberID }}" />
         </th>
         {% endif %}
         <th>
-            {{ member.memberid }}
+            {{ member.memberID }}
         </th>
         <th>
-          <a href="/members/update?id={{member.memberid}}">
+          <a href="/members/update?memberID={{member.memberID}}">
           {{ member.name }}</th>
           </a>
         <th>{{ member.registration_timestamp }}</th>
         <th>{{ member.pending_books }}</th>
         <th>₹{{ member.due_amount }}</th>
-        <th>
-        {% if can_issue %}
-        <form action="/issue" method="get">
-          <input type="hidden" name="memberid" value="{{member.memberid}}" />
-          <button type="submit">Issue</button>
-        </form>
-        {% else %}
-          Fee Exceeded ₹500
+        {% if not delete_mode %}
+          <th>
+          {% if can_issue %}
+            <form action="/issue" method="get">
+              <input type="hidden" name="memberID" value="{{member.memberID}}" />
+              <button type="submit">Issue</button>
+            </form>
+          {% else %}
+            Fee Exceeded ₹500
+          {% endif %}
+          </th>
         {% endif %}
-        </th>
       </tr>
       {% endfor %}
     </tbody>

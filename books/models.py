@@ -4,18 +4,18 @@ from ..db import conn
 def read():
     cur = conn.cursor()
     cur.execute(
-        "select bookid, title, authors, isbn, language_code, publication_date, publisher, amount, currently_available from books_view"
+        "select bookID, title, authors, isbn, language_code, publication_date, publisher, amount, currently_available from books_view"
     )
     books = cur.fetchall()
     cur.close()
     return books
 
 
-def get_from_id(bookid):
+def get_from_id(bookID):
     cur = conn.cursor()
     cur.execute(
-        "select bookid, title, authors, isbn, language_code, publication_date, publisher, amount, currently_available from books_view where bookid = ?",
-        (bookid,),
+        "select bookID, title, authors, isbn, language_code, publication_date, publisher, amount, currently_available from books_view where bookID = ?",
+        (bookID,),
     )
     book = cur.fetchone()
     cur.close()
@@ -23,14 +23,14 @@ def get_from_id(bookid):
 
 
 def create(
-    bookid, title, authors, isbn, language_code, publication_date, publisher, amount
+    bookID, title, authors, isbn, language_code, publication_date, publisher, amount
 ):
     cur = conn.cursor()
     try:
         cur.execute(
-            "insert into books (bookid, title, authors, isbn, language_code, publication_date, publisher, amount) values (?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert into books (bookID, title, authors, isbn, language_code, publication_date, publisher, amount) values (?, ?, ?, ?, ?, ?, ?, ?)",
             (
-                bookid,
+                bookID,
                 title,
                 authors,
                 isbn,
@@ -48,15 +48,15 @@ def create(
     return True
 
 
-def delete(ids):
+def delete(bookIDs):
     cur = conn.cursor()
     try:
         # I myself have never batch deleted before.
         # What this does is give the list of ids as parameters and the corresponding
         # '?'s as a string to the query.
         # This is messy but safe, and avoids the n+1 problem
-        selectors = ", ".join("?" for id in range(len(ids)))
-        cur.execute(f"delete from books where bookid in ({selectors})", ids)
+        selectors = ", ".join("?" for bookID in range(len(bookIDs)))
+        cur.execute(f"delete from books where bookID in ({selectors})", bookIDs)
         cur.close()
         conn.commit()
     except:
@@ -65,12 +65,12 @@ def delete(ids):
 
 
 def update(
-    bookid, title, authors, isbn, language_code, publication_date, publisher, amount
+    bookID, title, authors, isbn, language_code, publication_date, publisher, amount
 ):
     cur = conn.cursor()
     try:
         cur.execute(
-            "update books set title=?, authors=?, isbn=?, language_code=?, publication_date=?, publisher=?, amount=? where bookid=?",
+            "update books set title=?, authors=?, isbn=?, language_code=?, publication_date=?, publisher=?, amount=? where bookID=?",
             (
                 title,
                 authors,
@@ -79,7 +79,7 @@ def update(
                 publication_date,
                 publisher,
                 amount,
-                bookid,
+                bookID,
             ),
         )
         print(cur.lastrowid)

@@ -38,14 +38,14 @@ delete_mode %}
         {% endif %}
         {% if delete_mode %}
         <th>
-          <input type="checkbox" name="delete" value="{{ book.bookid }}" />
+          <input type="checkbox" name="delete" value="{{ book.bookID }}" />
         </th>
         {% endif %}
         <th>
-            {{ book.bookid }}
+            {{ book.bookID }}
         </th>
         <th>
-          <a href="/books/update?id={{book.bookid}}">
+          <a href="/books/update?bookID={{book.bookID}}">
           {{ book.title }}</th>
           </a>
         <th>{{ book.authors }}</th>
@@ -59,8 +59,8 @@ delete_mode %}
         {% if issue_mode %}
           {% if available %}
           <form action="/issue" method="post">
-            <input type="hidden" name="memberid" value="{{memberid}}">
-            <input type="hidden" name="bookid" value="{{book.bookid}}">
+            <input type="hidden" name="memberID" value="{{memberID}}">
+            <input type="hidden" name="bookID" value="{{book.bookID}}">
             <button type="submit">Issue</button>
           </form>
           {% else %}

@@ -35,11 +35,12 @@ def delete_view():
         # This is messy but prevents a lot of duplication and is clean in the long run.
         return render_template("members/index.html", members=members, delete_mode=True)
     if request.method == "POST":
-        ids = request.form.getlist("delete")
-        if delete(ids):
+        memberIDs = request.form.getlist("memberID")
+        if delete(memberIDs):
             return render_template(
-                "success.html", message=f"Successfully deleted {len(ids)} IDs!"
+                "success.html", message=f"Successfully deleted {len(memberIDs)} IDs!"
             )
+        else:
             return render_template(
                 "failure.html", message=f"There was a problem deleting the IDs!"
             )
@@ -48,20 +49,20 @@ def delete_view():
 @route.route("/update", methods=["GET", "POST"])
 def update_view():
     if request.method == "GET":
-        id = request.args.get("id", default=-1, type=int)
-        if id == -1:
+        memberID = request.args.get("memberID", default=-1, type=int)
+        if memberID == -1:
             return render_template(
                 "failure.html", message=f"Please provide an ID to update!"
             )
-        member = get_from_id(id)
+        member = get_from_id(memberID)
         return render_template("members/update.html", member=member)
     if request.method == "POST":
-        id = request.form["id"]
+        memberID = request.form["memberID"]
         name = request.form["name"]
         timestamp = request.form["timestamp"]
-        if update(id, name, timestamp):
+        if update(memberID, name, timestamp):
             return render_template(
-                "success.html", message=f"Successfully updated ID {id}!"
+                "success.html", message=f"Successfully updated ID {memberID}!"
             )
         else:
             return render_template(

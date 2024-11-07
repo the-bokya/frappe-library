@@ -29,7 +29,7 @@ def create_view():
         return render_template("books/create.html", book=book)
 
     if request.method == "POST":
-        id = request.form["bookID"]
+        bookID = request.form["bookID"]
         title = request.form["title"]
         authors = request.form["authors"]
         isbn = request.form["isbn"]
@@ -43,7 +43,7 @@ def create_view():
                 message=f"Please enter a positive amount!",
             )
         if create(
-            bookid=id,
+            bookID=bookID,
             title=title,
             authors=authors,
             isbn=isbn,
@@ -70,10 +70,10 @@ def delete_view():
         # This is messy but prevents a lot of duplication and is clean in the long run.
         return render_template("books/index.html", books=books, delete_mode=True)
     if request.method == "POST":
-        ids = request.form.getlist("delete")
-        if delete(ids):
+        bookIDs = request.form.getlist("delete")
+        if delete(bookIDs):
             return render_template(
-                "success.html", message=f"Successfully deleted {len(ids)} IDs!"
+                "success.html", message=f"Successfully deleted {len(bookIDs)} IDs!"
             )
         else:
             return render_template(
@@ -84,15 +84,15 @@ def delete_view():
 @route.route("/update", methods=["GET", "POST"])
 def update_view():
     if request.method == "GET":
-        id = request.args.get("id", default=-1, type=int)
-        if id == -1:
+        bookID = request.args.get("bookID", default=-1, type=int)
+        if bookID == -1:
             return render_template(
                 "failure.html", message=f"Please provide an ID to update!"
             )
-        book = get_from_id(id)
+        book = get_from_id(bookID)
         return render_template("books/update.html", book=book)
     if request.method == "POST":
-        id = request.form["bookID"]
+        bookID = request.form["bookID"]
         title = request.form["title"]
         authors = request.form["authors"]
         isbn = request.form["isbn"]
@@ -102,10 +102,10 @@ def update_view():
         amount = request.form["amount"]
 
         if update(
-            id, title, authors, isbn, language_code, publication_date, publisher, amount
+            bookID, title, authors, isbn, language_code, publication_date, publisher, amount
         ):
             return render_template(
-                "success.html", message=f"Successfully updated ID {id}!"
+                "success.html", message=f"Successfully updated ID {bookID}!"
             )
         else:
             return render_template(
@@ -119,7 +119,7 @@ def import_view():
         return render_template("books/import.html", show_books=False)
 
     if request.method == "POST":
-        id = request.form["bookID"]
+        bookID = request.form["bookID"]
         title = request.form["title"]
         authors = request.form["authors"]
         isbn = request.form["isbn"]
@@ -129,7 +129,7 @@ def import_view():
         amount = request.form["amount"]
 
         if update(
-            bookid=id,
+            bookID=bookID,
             title=title,
             authors=authors,
             isbn=isbn,
@@ -139,7 +139,7 @@ def import_view():
             amount=amount,
         ):
             return render_template(
-                "success.html", message=f"Successfully updated ID {id}!"
+                "success.html", message=f"Successfully updated ID {bookID}!"
             )
         else:
             return render_template(

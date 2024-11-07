@@ -8,7 +8,7 @@ conn.execute(
     """
     create table if not exists members
     (
-        memberid integer primary key autoincrement,
+        memberID integer primary key autoincrement,
         name text,
         registration_timestamp datetime default current_timestamp
     )
@@ -19,7 +19,7 @@ conn.execute(
 conn.execute(
     """create table if not exists books
     (
-        bookid integer primary key,
+        bookID integer primary key,
         title text,
         authors text,
         isbn text,
@@ -35,13 +35,13 @@ conn.execute(
     """create table if not exists transactions
     (
         transactionid integer primary key autoincrement,
-        bookid integer,
-        memberid integer,
+        bookID integer,
+        memberID integer,
         issue_date date default (date('now')),
         return_date date,
         returned boolean default 0,
-        foreign key(bookid) references books(bookid),
-        foreign key (memberid) references members(memberid)
+        foreign key(bookID) references books(bookID),
+        foreign key (memberID) references members(memberID)
     )
     """
 )
@@ -50,20 +50,20 @@ conn.execute(
 conn.execute(
     """
     create view if not exists members_view as
-    with a (memberid, pending_books, due_amount) as (
-        select memberid, count(*), count(*) * 100
+    with a (memberID, pending_books, due_amount) as (
+        select memberID, count(*), count(*) * 100
         from transactions
         where returned = 0
-        group by memberid
+        group by memberID
     )
     select
-        mbs.memberid,
+        mbs.memberID,
         mbs.name,
         mbs.registration_timestamp, 
         coalesce(a.pending_books, 0) as pending_books, 
         coalesce(a.due_amount, 0) as due_amount
     from members as mbs
-    left join a on mbs.memberid = a.memberid;
+    left join a on mbs.memberID = a.memberID;
     """
 )
 
@@ -71,15 +71,15 @@ conn.execute(
 conn.execute(
     """
     create view if not exists books_view as
-    with a (bookid, currently_available) as (
-        select transactions.bookid, books.amount - count(*)
+    with a (bookID, currently_available) as (
+        select transactions.bookID, books.amount - count(*)
         from transactions
-        inner join books on books.bookid = transactions.bookid
+        inner join books on books.bookID = transactions.bookID
         where returned = 0
-        group by transactions.bookid
+        group by transactions.bookID
     )
     select
-        bks.bookid,
+        bks.bookID,
         bks.title,
         bks.authors, 
         bks.isbn,
@@ -89,7 +89,7 @@ conn.execute(
         bks.amount,
         coalesce(a.currently_available, bks.amount) as currently_available
     from books as bks
-    left join a on bks.bookid = a.bookid;
+    left join a on bks.bookID = a.bookID;
     """
 )
 conn.commit()

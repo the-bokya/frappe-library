@@ -1,20 +1,20 @@
 from ..db import conn
 
-def issue(bookid, memberid):
+def issue(bookID, memberID):
     cur = conn.cursor()
     try:
-        print(bookid, memberid, "meow")
+        print(bookID, memberID, "meow")
         cur.execute("""
-        insert into transactions (bookid, memberid)
-        select books_view.bookid, members_view.memberid
+        insert into transactions (bookID, memberID)
+        select books_view.bookID, members_view.memberID
         from books_view
         join members_view
         where
-        books_view.bookid = ?
-        and members_view.memberid = ?
+        books_view.bookID = ?
+        and members_view.memberID = ?
         and books_view.currently_available > 0
         and members_view.due_amount < 500
-        """, (bookid, memberid))
+        """, (bookID, memberID))
         if cur.rowcount == 0:
             conn.rollback()
             return False
