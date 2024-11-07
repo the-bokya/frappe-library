@@ -50,7 +50,7 @@ conn.execute(
     """
     create view if not exists members_view as
     with a (memberid, pending_books, due_amount) as (
-        select memberid, count(*), sum(cast(julianday('now') - julianday(issue_date) as int)) * 20
+        select memberid, count(*), count(*) * 100
         from transactions
         where returned = 0
         group by memberid

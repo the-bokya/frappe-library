@@ -23,11 +23,19 @@ delete_mode %}
         <th>Publisher</th>
         <th>Currently Available</th>
         <th>Total Stock</th>
+        {% if issue_mode %}
+          <th>Issue</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
       {% for book in books %}
-      <tr>
+        {% set available = book.currently_available > 0 %}
+        {% if available %}
+          <tr>
+        {% else %}
+          <tr class="pico-background-red-500">
+        {% endif %}
         {% if delete_mode %}
         <th>
           <input type="checkbox" name="delete" value="{{ book.bookid }}" />
@@ -47,6 +55,19 @@ delete_mode %}
         <th>{{ book.publisher }}</th>
         <th>{{ book.currently_available }}</th>
         <th>{{ book.amount }}</th>
+        <th>
+        {% if issue_mode %}
+          {% if available %}
+          <form action="/issue" method="post">
+            <input type="hidden" name="memberid" value="{{memberid}}">
+            <input type="hidden" name="bookid" value="{{book.bookid}}">
+            <button type="submit">Issue</button>
+          </form>
+          {% else %}
+            Not Available
+          {% endif %}
+        {% endif %}
+        </th>
       </tr>
       {% endfor %}
     </tbody>

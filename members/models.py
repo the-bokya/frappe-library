@@ -3,7 +3,7 @@ from ..db import conn
 
 def read():
     cur = conn.cursor()
-    cur.execute("select memberid, name, registration_timestamp from members")
+    cur.execute("select memberid, name, registration_timestamp, pending_books, due_amount from members_view")
     members = cur.fetchall()
     cur.close()
     return members
@@ -12,7 +12,7 @@ def read():
 def get_from_id(id):
     cur = conn.cursor()
     cur.execute(
-        "select memberid, name, registration_timestamp from members where memberid = ?",
+        "select memberid, name, registration_timestamp, pending_books, due_amount from members_view where memberid = ?",
         (id,),
     )
     member = cur.fetchone()

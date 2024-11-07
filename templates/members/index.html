@@ -17,10 +17,14 @@ delete_mode %}
         <th>ID</th>
         <th>Name</th>
         <th>Registration Time</th>
+        <th>Pending Returns</th>
+        <th>Due Amount</th>
+        <th>Issue</th>
       </tr>
     </thead>
     <tbody>
       {% for member in members %}
+      {% set can_issue = member.due_amount < 500 %}
       <tr>
         {% if delete_mode %}
         <th>
@@ -35,6 +39,18 @@ delete_mode %}
           {{ member.name }}</th>
           </a>
         <th>{{ member.registration_timestamp }}</th>
+        <th>{{ member.pending_books }}</th>
+        <th>₹{{ member.due_amount }}</th>
+        <th>
+        {% if can_issue %}
+        <form action="/issue" method="get">
+          <input type="hidden" name="memberid" value="{{member.memberid}}" />
+          <button type="submit">Issue</button>
+        </form>
+        {% else %}
+          Fee Exceeded ₹500
+        {% endif %}
+        </th>
       </tr>
       {% endfor %}
     </tbody>
