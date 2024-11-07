@@ -37,7 +37,7 @@ def create_view():
         publication_date = request.form["publication_date"]
         publisher = request.form["publisher"]
         amount = request.form["amount"]
-        if amount <= 0:
+        if int(amount) <= 0:
             return render_template(
                 "failure.html",
                 message=f"Please enter a positive amount!",
