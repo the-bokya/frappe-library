@@ -1,59 +1,63 @@
-{% extends "./base.html" %} {% block title %} {% if delete_mode %} Import Books
-{% else %} Books {% endif %} {% endblock %} {% block main %}
-<form action="/books/import/search" method="get">
-  <input type="text" name="title" placeholder="Title" />
-  <input type="text" name="authors" placeholder="Authors" />
-  <input type="text" name="isbn" placeholder="ISBN" />
-  <input type="text" name="publisher" placeholder="Publisher" />
-  <button type="submit"><strong>Search</strong></button>
-</form>
-{% if show_books %}
-<table>
-  <thead>
-    <h1>Books</h1>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Authors</th>
-      <th>ISBN</th>
-      <th>Language Code</th>
-      <th>Publication Date</th>
-      <th>Publisher</th>
-      <th>Import</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for book in books %}
-    <tr>
-      <th>{{ book.bookID }}</th>
-      <th>{{ book.title }}</th>
-      <th>{{ book.authors }}</th>
-      <th>{{ book.isbn }}</th>
-      <th>{{ book.language_code }}</th>
-      <th>{{ book.publication_date }}</th>
-      <th>{{ book.publisher }}</th>
-      <th>
-        <form action="/books/create" method="get">
-          <input type="hidden" name="bookID" value="{{book.bookID}}" />
-          <input type="hidden" name="title" value="{{book.title}}" />
-          <input type="hidden" name="authors" value="{{book.authors}}" />
-          <input type="hidden" name="isbn" value="{{book.isbn}}" />
-          <input
-            type="hidden"
-            name="language_code"
-            value="{{book.language_code}}"
-          />
-          <input
-            type="hidden"
-            name="publication_date"
-            value="{{book.publication_date}}"
-          />
-          <input type="hidden" name="publisher" value="{{book.publisher}}" />
-          <button>Import</button>
-        </form>
-      </th>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %} {% endblock %}
+{% extends "./base.html" %}
+{% block title %}
+    {% if delete_mode %}
+        Import Books
+    {% else %}
+        Books
+    {% endif %}
+{% endblock %}
+{% block main %}
+    <form action="/books/import/search" method="get">
+        <input type="text" name="title" placeholder="Title" />
+        <input type="text" name="authors" placeholder="Authors" />
+        <input type="text" name="isbn" placeholder="ISBN" />
+        <input type="text" name="publisher" placeholder="Publisher" />
+        <button type="submit">
+            <strong>Search</strong>
+        </button>
+    </form>
+    {% if show_books %}
+        <table>
+            <thead>
+                <h1>Books</h1>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Authors</th>
+                    <th>ISBN</th>
+                    <th>Language Code</th>
+                    <th>Publication Date</th>
+                    <th>Publisher</th>
+                    <th>Import</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <th>{{ book.bookID }}</th>
+                        <th>{{ book.title }}</th>
+                        <th>{{ book.authors }}</th>
+                        <th>{{ book.isbn }}</th>
+                        <th>{{ book.language_code }}</th>
+                        <th>{{ book.publication_date }}</th>
+                        <th>{{ book.publisher }}</th>
+                        <th>
+                            <form action="/books/create" method="get">
+                                <input type="hidden" name="bookID" value="{{ book.bookID }}" />
+                                <input type="hidden" name="title" value="{{ book.title }}" />
+                                <input type="hidden" name="authors" value="{{ book.authors }}" />
+                                <input type="hidden" name="isbn" value="{{ book.isbn }}" />
+                                <input type="hidden" name="language_code" value="{{ book.language_code }}" />
+                                <input type="hidden"
+                                       name="publication_date"
+                                       value="{{ book.publication_date }}" />
+                                <input type="hidden" name="publisher" value="{{ book.publisher }}" />
+                                <button>Import</button>
+                            </form>
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

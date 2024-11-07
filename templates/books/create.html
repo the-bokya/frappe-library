@@ -1,23 +1,42 @@
-{% extends "./base.html" %} {% block title %} Members {% endblock %} {% block
-main %}
-<h1>Create a New Member</h1>
-<form action="/books/create" method="post">
-  <label for="name">Book ID</label>
-  <input type="number" name="bookID" placeholder="Book ID" value="{{book.bookID}}"/>
-  <label for="name">Title</label>
-  <input type="text" name="title" placeholder="Title" value="{{book.title}}"/>
-  <label for="authors">Authors</label>
-  <input type="text" name="authors" placeholder="Authors" value="{{book.authors}}"/>
-  <label for="isbn">ISBN</label>
-  <input type="number" name="isbn" placeholder="ISBN" value="{{book.isbn}}" />
-  <label for="language_code">Language Code</label>
-  <input type="text" name="language_code" placeholder="Language Code" value="{{book.language_code}}" />
-  <label for="publication_date">Publication Date</label>
-  <input type="date" name="publication_date" placeholder="Language Code" value="{{book.publication_date | datereader}}" />
-  <label for="publisher">Publisher</label>
-  <input type="text" name="publisher" placeholder="Publisher" value="{{book.publisher}}"/>
-  <label for="amount">Amount</label>
-  <input type="number" name="amount" placeholder="Amount" value="30" min="1"/>
-  <button type="submit"><strong>Create</strong></button>
-</form>
+{% extends "./base.html" %}
+{% block title %}Members{% endblock %}
+{% block
+    main %}
+    <h1>Create a New Member</h1>
+    <form action="/books/create" method="post">
+        <label for="name">Book ID</label>
+        <input type="number"
+               name="bookID"
+               placeholder="Book ID"
+               value="{{ book.bookID }}" />
+        <label for="name">Title</label>
+        <input type="text" name="title" placeholder="Title" value="{{ book.title }}" />
+        <label for="authors">Authors</label>
+        <input type="text"
+               name="authors"
+               placeholder="Authors"
+               value="{{ book.authors }}" />
+        <label for="isbn">ISBN</label>
+        <input type="number" name="isbn" placeholder="ISBN" value="{{ book.isbn }}" />
+        <label for="language_code">Language Code</label>
+        <input type="text"
+               name="language_code"
+               placeholder="Language Code"
+               value="{{ book.language_code }}" />
+        <label for="publication_date">Publication Date</label>
+        <input type="date"
+               name="publication_date"
+               placeholder="Language Code"
+               value="{{ book.publication_date | datereader }}" />
+        <label for="publisher">Publisher</label>
+        <input type="text"
+               name="publisher"
+               placeholder="Publisher"
+               value="{{ book.publisher }}" />
+        <label for="amount">Amount</label>
+        <input type="number" name="amount" placeholder="Amount" value="30" min="1" />
+        <button type="submit">
+            <strong>Create</strong>
+        </button>
+    </form>
 {% endblock %}

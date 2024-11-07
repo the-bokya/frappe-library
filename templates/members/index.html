@@ -1,77 +1,83 @@
-{% extends "./base.html" %} {% block title %} {% if delete_mode %} Delete
-Members {% else %} Members {% endif %} {% endblock %} {% block main %} {% if
-delete_mode %}
-<form action="/members/delete" method="post">
-  {% endif %}
-  <table>
-    <thead>
-      {% if delete_mode %}
-      <h1>Delete Members</h1>
-      {% else %}
-      <h1>Members</h1>
-      {% endif %}
-      <tr>
+{% extends "./base.html" %}
+{% block title %}
+    {% if delete_mode %}
+        Delete
+        Members
+    {% else %}
+        Members
+    {% endif %}
+{% endblock %}
+{% block main %}
+    {% if
+        delete_mode %}
+        <form action="/members/delete" method="post">
+        {% endif %}
+        <table>
+            <thead>
+                {% if delete_mode %}
+                    <h1>Delete Members</h1>
+                {% else %}
+                    <h1>Members</h1>
+                {% endif %}
+                <tr>
+                    {% if delete_mode %}<th>🗑</th>{% endif %}
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Registration Time</th>
+                    <th>Pending Returns</th>
+                    <th>Due Amount</th>
+                    {% if not delete_mode %}<th>Issue</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                    {% set can_issue = member.due_amount < 500 %}
+                    <tr>
+                        {% if delete_mode %}
+                            <th>
+                                <input type="checkbox" name="memberID" value="{{ member.memberID }}" />
+                            </th>
+                        {% endif %}
+                        <th>{{ member.memberID }}</th>
+                        <th>
+                            <a href="/members/update?memberID={{ member.memberID }}">
+                                {{ member.name }}
+                            </th>
+                        </a>
+                        <th>{{ member.registration_timestamp }}</th>
+                        <th>{{ member.pending_books }}</th>
+                        <th>₹{{ member.due_amount }}</th>
+                        {% if not delete_mode %}
+                            <th>
+                                {% if can_issue %}
+                                    <form action="/issue" method="get">
+                                        <input type="hidden" name="memberID" value="{{ member.memberID }}" />
+                                        <button type="submit">Issue</button>
+                                    </form>
+                                {% else %}
+                                    Fee Exceeded ₹500
+                                {% endif %}
+                            </th>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% if delete_mode %}
-        <th>🗑</th>
-        {% endif %}
-        <th>ID</th>
-        <th>Name</th>
-        <th>Registration Time</th>
-        <th>Pending Returns</th>
-        <th>Due Amount</th>
-        {% if not delete_mode %}
-          <th>Issue</th>
-        {% endif %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for member in members %}
-      {% set can_issue = member.due_amount < 500 %}
-      <tr>
-        {% if delete_mode %}
-        <th>
-          <input type="checkbox" name="memberID" value="{{ member.memberID }}" />
-        </th>
-        {% endif %}
-        <th>
-            {{ member.memberID }}
-        </th>
-        <th>
-          <a href="/members/update?memberID={{member.memberID}}">
-          {{ member.name }}</th>
-          </a>
-        <th>{{ member.registration_timestamp }}</th>
-        <th>{{ member.pending_books }}</th>
-        <th>₹{{ member.due_amount }}</th>
-        {% if not delete_mode %}
-          <th>
-          {% if can_issue %}
-            <form action="/issue" method="get">
-              <input type="hidden" name="memberID" value="{{member.memberID}}" />
-              <button type="submit">Issue</button>
-            </form>
-          {% else %}
-            Fee Exceeded ₹500
-          {% endif %}
-          </th>
-        {% endif %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  {% if delete_mode %}
-  <button type="submit"><strong>Delete</strong></button>
-</form>
-{% else %}
-<a href="/members/create">
-  <button>
-    <strong>+ add members</strong>
-  </button>
-</a>
-<a href="/members/delete">
-  <button>
-    <strong>- delete members</strong>
-  </button>
-</a>
-{% endif %} {% endblock %}
+            <button type="submit">
+                <strong>Delete</strong>
+            </button>
+        </form>
+    {% else %}
+        <a href="/members/create">
+            <button>
+                <strong>+ add members</strong>
+            </button>
+        </a>
+        <a href="/members/delete">
+            <button>
+                <strong>- delete members</strong>
+            </button>
+        </a>
+    {% endif %}
+{% endblock %}

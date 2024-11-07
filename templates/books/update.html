@@ -1,52 +1,41 @@
-{% extends "./base.html" %} {% block title %} Books {% endblock %} {% block main
-%}
-<h1>Update Book</h1>
-<form action="/books/update" method="post">
-  <input type="hidden" name="bookID" value="{{ book.bookID }}" />
-  <label for="name">Title</label>
-  <input
-    type="text"
-    name="title"
-    placeholder="Title"
-    value="{{ book.title }}"
-  />
-  <label for="authors">Authors</label>
-  <input
-    type="text"
-    name="authors"
-    placeholder="Authors"
-    value="{{ book.authors }}"
-  />
-  <label for="isbn">ISBN</label>
-  <input type="number" name="isbn" placeholder="ISBN" value="{{ book.isbn }}" />
-  <label for="language_code">Language Code</label>
-  <input
-    type="text"
-    name="language_code"
-    placeholder="Language Code"
-    value="{{ book.language_code }}"
-  />
-  <label for="publication_date">Publication Date</label>
-  <input
-    type="date"
-    name="publication_date"
-    placeholder="Language Code"
-    value="{{ book.publication_date }}"
-  />
-  <label for="publisher">Publisher</label>
-  <input
-    type="text"
-    name="publisher"
-    placeholder="Publisher"
-    value="{{ book.publisher }}"
-  />
-  <label for="amount">Amount</label>
-  <input
-    type="number"
-    name="amount"
-    placeholder="Amount"
-    value="{{ book.amount }}"
-  />
-  <button type="submit"><strong>Update</strong></button>
-</form>
+{% extends "./base.html" %}
+{% block title %}Books{% endblock %}
+{% block main
+    %}
+    <h1>Update Book</h1>
+    <form action="/books/update" method="post">
+        <input type="hidden" name="bookID" value="{{ book.bookID }}" />
+        <label for="name">Title</label>
+        <input type="text" name="title" placeholder="Title" value="{{ book.title }}" />
+        <label for="authors">Authors</label>
+        <input type="text"
+               name="authors"
+               placeholder="Authors"
+               value="{{ book.authors }}" />
+        <label for="isbn">ISBN</label>
+        <input type="number" name="isbn" placeholder="ISBN" value="{{ book.isbn }}" />
+        <label for="language_code">Language Code</label>
+        <input type="text"
+               name="language_code"
+               placeholder="Language Code"
+               value="{{ book.language_code }}" />
+        <label for="publication_date">Publication Date</label>
+        <input type="date"
+               name="publication_date"
+               placeholder="Language Code"
+               value="{{ book.publication_date }}" />
+        <label for="publisher">Publisher</label>
+        <input type="text"
+               name="publisher"
+               placeholder="Publisher"
+               value="{{ book.publisher }}" />
+        <label for="amount">Amount</label>
+        <input type="number"
+               name="amount"
+               placeholder="Amount"
+               value="{{ book.amount }}" />
+        <button type="submit">
+            <strong>Update</strong>
+        </button>
+    </form>
 {% endblock %}

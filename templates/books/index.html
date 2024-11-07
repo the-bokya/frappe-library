@@ -1,95 +1,101 @@
-{% extends "./base.html" %} {% block title %} {% if delete_mode %} Delete
-Books {% else %} Books {% endif %} {% endblock %} {% block main %} {% if
-delete_mode %}
-<form action="/books/delete" method="post">
-  {% endif %}
-  <table>
-    <thead>
-      {% if delete_mode %}
-      <h1>Delete books</h1>
-      {% else %}
-      <h1>books</h1>
-      {% endif %}
-      <tr>
-        {% if delete_mode %}
-        <th>🗑</th>
+{% extends "./base.html" %}
+{% block title %}
+    {% if delete_mode %}
+        Delete
+        Books
+    {% else %}
+        Books
+    {% endif %}
+{% endblock %}
+{% block main %}
+    {% if
+        delete_mode %}
+        <form action="/books/delete" method="post">
         {% endif %}
-        <th>ID</th>
-        <th>Name</th>
-        <th>Authors</th>
-        <th>ISBN</th>
-        <th>Language Code</th>
-        <th>Publication Date</th>
-        <th>Publisher</th>
-        <th>Currently Available</th>
-        <th>Total Stock</th>
-        {% if issue_mode %}
-          <th>Issue</th>
-        {% endif %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for book in books %}
-        {% set available = book.currently_available > 0 %}
-        {% if available %}
-          <tr>
+        <table>
+            <thead>
+                {% if delete_mode %}
+                    <h1>Delete books</h1>
+                {% else %}
+                    <h1>books</h1>
+                {% endif %}
+                <tr>
+                    {% if delete_mode %}<th>🗑</th>{% endif %}
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Authors</th>
+                    <th>ISBN</th>
+                    <th>Language Code</th>
+                    <th>Publication Date</th>
+                    <th>Publisher</th>
+                    <th>Currently Available</th>
+                    <th>Total Stock</th>
+                    {% if issue_mode %}<th>Issue</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    {% set available = book.currently_available > 0 %}
+                    {% if available %}
+                        <tr>
+                        {% else %}
+                            <tr class="pico-background-red-500">
+                            {% endif %}
+                            {% if delete_mode %}
+                                <th>
+                                    <input type="checkbox" name="delete" value="{{ book.bookID }}" />
+                                </th>
+                            {% endif %}
+                            <th>{{ book.bookID }}</th>
+                            <th>
+                                <a href="/books/update?bookID={{ book.bookID }}">
+                                    {{ book.title }}
+                                </th>
+                            </a>
+                            <th>{{ book.authors }}</th>
+                            <th>{{ book.isbn }}</th>
+                            <th>{{ book.language_code }}</th>
+                            <th>{{ book.publication_date }}</th>
+                            <th>{{ book.publisher }}</th>
+                            <th>{{ book.currently_available }}</th>
+                            <th>{{ book.amount }}</th>
+                            <th>
+                                {% if issue_mode %}
+                                    {% if available %}
+                                        <form action="/issue" method="post">
+                                            <input type="hidden" name="memberID" value="{{ memberID }}">
+                                            <input type="hidden" name="bookID" value="{{ book.bookID }}">
+                                            <button type="submit">Issue</button>
+                                        </form>
+                                    {% else %}
+                                        Not Available
+                                    {% endif %}
+                                {% endif %}
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if delete_mode %}
+                <button type="submit">
+                    <strong>Delete</strong>
+                </button>
+            </form>
         {% else %}
-          <tr class="pico-background-red-500">
+            <a href="/books/create">
+                <button>
+                    <strong>+ Add Books</strong>
+                </button>
+            </a>
+            <a href="/books/delete">
+                <button>
+                    <strong>- Delete Books</strong>
+                </button>
+            </a>
+            <a href="/books/import">
+                <button>
+                    <strong>Import from the Frappe API</strong>
+                </button>
+            </a>
         {% endif %}
-        {% if delete_mode %}
-        <th>
-          <input type="checkbox" name="delete" value="{{ book.bookID }}" />
-        </th>
-        {% endif %}
-        <th>
-            {{ book.bookID }}
-        </th>
-        <th>
-          <a href="/books/update?bookID={{book.bookID}}">
-          {{ book.title }}</th>
-          </a>
-        <th>{{ book.authors }}</th>
-        <th>{{ book.isbn }}</th>
-        <th>{{ book.language_code }}</th>
-        <th>{{ book.publication_date }}</th>
-        <th>{{ book.publisher }}</th>
-        <th>{{ book.currently_available }}</th>
-        <th>{{ book.amount }}</th>
-        <th>
-        {% if issue_mode %}
-          {% if available %}
-          <form action="/issue" method="post">
-            <input type="hidden" name="memberID" value="{{memberID}}">
-            <input type="hidden" name="bookID" value="{{book.bookID}}">
-            <button type="submit">Issue</button>
-          </form>
-          {% else %}
-            Not Available
-          {% endif %}
-        {% endif %}
-        </th>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  {% if delete_mode %}
-  <button type="submit"><strong>Delete</strong></button>
-</form>
-{% else %}
-<a href="/books/create">
-  <button>
-    <strong>+ Add Books</strong>
-  </button>
-</a>
-<a href="/books/delete">
-  <button>
-    <strong>- Delete Books</strong>
-  </button>
-</a>
-<a href="/books/import">
-  <button>
-    <strong>Import from the Frappe API</strong>
-  </button>
-</a>
-{% endif %} {% endblock %}
+    {% endblock %}

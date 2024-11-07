@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/pico.yellow.min.css" />
-    <link rel="stylesheet" href="/static/pico.colors.min.css" />
-    <title>Frappe Library - {% block title %} {% endblock %}</title>
-  </head>
-  <body>
-    <main class="container">
-      <nav>
-        <ul>
-          <li><strong>Frappe Library</strong></li>
-        </ul>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/members">Members</a></li>
-          <li><a href="/books">Books</a></li>
-          <li><a href="/transactions">Transactions</a></li>
-        </ul>
-      </nav>
-      {% block main %} {% endblock %}
-    </main>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/pico.yellow.min.css" />
+        <link rel="stylesheet" href="/static/pico.colors.min.css" />
+        <title>Frappe Library -
+            {% block title %}{% endblock %}
+        </title>
+    </head>
+    <body>
+        <main class="container">
+            <nav>
+                <ul>
+                    <li>
+                        <strong>Frappe Library</strong>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/members">Members</a>
+                    </li>
+                    <li>
+                        <a href="/books">Books</a>
+                    </li>
+                    <li>
+                        <a href="/transactions">Transactions</a>
+                    </li>
+                </ul>
+            </nav>
+            {% block main %}{% endblock %}
+        </main>
+    </body>
 </html>
