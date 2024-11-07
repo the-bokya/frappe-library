@@ -16,5 +16,5 @@ My implementation of Frappe's dev-hiring-test.
   - [ ] Transactions (view-only)
 - [X] Interface with the Frappe book API.
 - [X] Screen for book insert (maybe htmx if needed)
-- [ ] Return logic
+- [X] Return logic
 - [ ] Clean the code

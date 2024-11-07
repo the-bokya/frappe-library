@@ -1,0 +1,39 @@
+{% extends "./base.html" %} {% block title %} Transactions {% endblock %} {% block main %} <table>
+    <thead>
+        <h1>Transactions</h1>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Member ID</th>
+            <th>Member Name</th>
+            <th>Book ID</th>
+            <th>Book Title</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+            <th>Returned</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <th>{{ transaction.transactionid }}</th>
+        <th>{{ transaction.memberid }}</th>
+        <th>{{ transaction.member_name }}</th>
+        <th>{{ transaction.bookid }}</th>
+        <th>{{ transaction.book_title }}</th>
+        <th>{{ transaction.issue_date }}</th>
+        <th>{{ transaction.return_date }}</th>
+        <th>
+            {% if not transaction.returned %}
+            <form action="/transactions/return" method="post">
+                <input type="hidden" name="transactionid" value="{{transaction.transactionid}}" />
+                <button class="pico-background-red-500">Nope, return now</button>
+            </form>
+            {% else %}
+            Yes
+            {% endif %}
+        </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
