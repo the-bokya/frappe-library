@@ -10,7 +10,7 @@ conn.execute(
 
 # Initialise books
 conn.execute(
-    "create table if not exists books (bookid integer primary key, title text, authors text, average_rating numeric real, isbn text, isbn13 text, language_code text, num_pages integer, ratings_count integer, text_reviews_count integer, publication_date date, publisher text, taken_by integer, foreign key (taken_by) references members(memberid))"
+    "create table if not exists books (bookid integer primary key, title text, authors text, isbn text,language_code text, publication_date date, publisher text, amount integer)"
 )
 # Initialise transactions (transaction_type should be either "issue" or "return")
 conn.execute(
