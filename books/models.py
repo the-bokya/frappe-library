@@ -4,7 +4,7 @@ from ..db import conn
 def read():
     cur = conn.cursor()
     cur.execute(
-        "select bookid, title, authors, isbn, language_code, publication_date, publisher, amount from books"
+        "select bookid, title, authors, isbn, language_code, publication_date, publisher, amount, currently_available from books_view"
     )
     books = cur.fetchall()
     cur.close()
@@ -14,7 +14,7 @@ def read():
 def get_from_id(bookid):
     cur = conn.cursor()
     cur.execute(
-        "select bookid, title, authors, isbn, language_code, publication_date, publisher, amount from books where bookid = ?",
+        "select bookid, title, authors, isbn, language_code, publication_date, publisher, amount, currently_available from books_view where bookid = ?",
         (bookid,),
     )
     book = cur.fetchone()

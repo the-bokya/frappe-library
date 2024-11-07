@@ -21,7 +21,8 @@ delete_mode %}
         <th>Language Code</th>
         <th>Publication Date</th>
         <th>Publisher</th>
-        <th>Amount</th>
+        <th>Currently Available</th>
+        <th>Total Stock</th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +45,7 @@ delete_mode %}
         <th>{{ book.language_code }}</th>
         <th>{{ book.publication_date }}</th>
         <th>{{ book.publisher }}</th>
+        <th>{{ book.currently_available }}</th>
         <th>{{ book.amount }}</th>
       </tr>
       {% endfor %}
