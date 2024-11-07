@@ -12,8 +12,8 @@ conn.execute(
 conn.execute(
     "create table if not exists books (bookid integer primary key, title text, authors text, isbn text,language_code text, publication_date date, publisher text, amount integer)"
 )
-# Initialise transactions (transaction_type should be either "issue" or "return")
+# Initialise transactions
 conn.execute(
-    "create table if not exists transactions(bookid integer, memberid integer, time datetime default current_timestamp, transaction_type text, foreign key(bookid) references books(bookid), foreign key (memberid) references members(memberid))"
+    "create table if not exists transactions(bookid integer, memberid integer, issue_date date default (date('now')), return_date date, returned boolean default 0, foreign key(bookid) references books(bookid), foreign key (memberid) references members(memberid))"
 )
 conn.commit()
