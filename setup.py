@@ -40,8 +40,8 @@ conn.execute(
         issue_date date default (date('now')),
         return_date date,
         returned boolean default 0,
-        foreign key(bookID) references books(bookID),
-        foreign key (memberID) references members(memberID)
+        foreign key(bookID) references books(bookID) on delete cascade,
+        foreign key (memberID) references members(memberID) on delete cascade
     )
     """
 )
