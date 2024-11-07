@@ -13,7 +13,18 @@ def view():
 @route.route("/create", methods=["GET", "POST"])
 def create_view():
     if request.method == "GET":
-        return render_template("books/create.html")
+        book = dict()
+        book["bookID"] = request.args.get("bookID", default=0, type=int)
+        book["title"] = request.args.get("title", default="", type=str)
+        book["authors"] = request.args.get("authors", default="", type=str)
+        book["isbn"] = request.args.get("isbn", default="", type=str)
+        book["language_code"] = request.args.get("language_code", default="", type=str)
+        book["publication_date"] = request.args.get("publication_date", default="", type=str)
+        book["publisher"] = request.args.get("publisher", default="", type=str)
+        book["amount"] = request.args.get("amount", default=0, type=int)
+
+        return render_template("books/create.html", book=book)
+
     if request.method == "POST":
         id = request.form["bookID"]
         title = request.form["title"]
@@ -23,7 +34,9 @@ def create_view():
         publication_date = request.form["publication_date"]
         publisher = request.form["publisher"]
         amount = request.form["amount"]
-        if create(id, title, authors, isbn, language_code, publication_date, publisher, amount):
+        if create(
+            id, title, authors, isbn, language_code, publication_date, publisher, amount
+        ):
             return render_template(
                 "success.html", message=f"Successfully created book {title}!"
             )
@@ -73,7 +86,9 @@ def update_view():
         publisher = request.form["publisher"]
         amount = request.form["amount"]
 
-        if update(id, title, authors, isbn, language_code, publication_date, publisher, amount):
+        if update(
+            id, title, authors, isbn, language_code, publication_date, publisher, amount
+        ):
             return render_template(
                 "success.html", message=f"Successfully updated ID {id}!"
             )

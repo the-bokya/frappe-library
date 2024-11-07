@@ -3,21 +3,21 @@ main %}
 <h1>Create a New Member</h1>
 <form action="/books/create" method="post">
   <label for="name">Book ID</label>
-  <input type="number" name="bookID" placeholder="Book ID" />
+  <input type="number" name="bookID" placeholder="Book ID" value="{{book.bookID}}"/>
   <label for="name">Title</label>
-  <input type="text" name="title" placeholder="Title" />
+  <input type="text" name="title" placeholder="Title" value="{{book.title}}"/>
   <label for="authors">Authors</label>
-  <input type="text" name="authors" placeholder="Authors" />
+  <input type="text" name="authors" placeholder="Authors" value="{{book.authors}}"/>
   <label for="isbn">ISBN</label>
-  <input type="number" name="isbn" placeholder="ISBN" />
+  <input type="number" name="isbn" placeholder="ISBN" value="{{book.isbn}}" />
   <label for="language_code">Language Code</label>
-  <input type="text" name="language_code" placeholder="Language Code" />
+  <input type="text" name="language_code" placeholder="Language Code" value="{{book.language_code}}" />
   <label for="publication_date">Publication Date</label>
-  <input type="date" name="publication_date" placeholder="Language Code" />
+  <input type="date" name="publication_date" placeholder="Language Code" value="{{book.publication_date}}" />
   <label for="publisher">Publisher</label>
-  <input type="text" name="publisher" placeholder="Publisher" />
+  <input type="text" name="publisher" placeholder="Publisher" value="{{book.publisher}}"/>
   <label for="amount">Amount</label>
-  <input type="number" name="amount" placeholder="Amount" />
+  <input type="number" name="amount" placeholder="Amount" value="30"/>
   <button type="submit"><strong>Create</strong></button>
 </form>
 {% endblock %}
