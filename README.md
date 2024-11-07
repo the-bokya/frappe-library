@@ -6,7 +6,7 @@ My implementation of Frappe's dev-hiring-test.
 
 - [X] Create DB schema
 - [X] Add DB connection object. (**Note**: Foreign keys have to be turned on manually)
-- [ ] Create screens for:
+- [X] Create screens for:
   - [X] Members (with CRUD)
     - [X] Create
     - [X] Read
@@ -16,3 +16,5 @@ My implementation of Frappe's dev-hiring-test.
   - [ ] Transactions (view-only)
 - [X] Interface with the Frappe book API.
 - [X] Screen for book insert (maybe htmx if needed)
+- [ ] Return logic
+- [ ] Clean the code

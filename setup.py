@@ -34,6 +34,7 @@ conn.execute(
 conn.execute(
     """create table if not exists transactions
     (
+        transactionid integer primary key autoincrement,
         bookid integer,
         memberid integer,
         issue_date date default (date('now')),
