@@ -18,7 +18,7 @@ My implementation of Frappe's dev-hiring-test.
 # Usage
 
 1. Install the dependencies.
-   `python -r requirements.txt`
+   `pip install -r requirements.txt`
 2. Setup the database file.
    `python setup.py`
 3. Run using Flask's development server.
