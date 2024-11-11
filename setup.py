@@ -26,7 +26,8 @@ conn.execute(
         language_code text,
         publication_date date,
         publisher text,
-        amount integer
+        amount integer,
+        check (amount >= 0)
     )
     """
 )
